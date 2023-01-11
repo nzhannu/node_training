@@ -1,0 +1,133 @@
+<h1> Node.js training Chapter 2</h1>
+<ul><li><b>Understandign Core Modules</b> File => const path = require("path");
+    const util = require("util");
+    const v8 = require("v8");
+    console.log(path.basename(__filename));
+    const dirUploads = path.join(
+      __dirname,
+      "www",
+      "files",
+      "uploads"
+    );
+    util.log(dirUploads);
+    util.log(path.basename(__filename));
+    
+    util.log(v8.getHeapStatistics());
+    
+
+<br/> Output => arvind@Bear-in-Mind Node.js training % node core
+core.js
+11 Jan 19:06:37 - /Users/arvind/Downloads/Github training/Node.js training/www/files/uploads
+11 Jan 19:06:37 - core.js
+11 Jan 19:06:37 - {
+  total_heap_size: 6103040,
+  total_heap_size_executable: 524288,
+  total_physical_size: 6012928,
+  total_available_size: 4340817096,
+  used_heap_size: 5369616,
+  heap_size_limit: 4345298944,
+  malloced_memory: 254128,
+  peak_malloced_memory: 99152,
+  does_zap_garbage: 0,
+  number_of_native_contexts: 1,
+  number_of_detached_contexts: 0,
+  total_global_handles_size: 8192,
+  used_global_handles_size: 2656,
+  external_memory: 419019
+}</li>
+<li><b>Collecting information with readline</b> File => const readline = require("readline");
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+    
+    rl.question("How do you like Node?", (answer) => {
+      console.log(`Your answer: ${answer}`);
+    });
+    
+<br/> Output  => arvind@Bear-in-Mind Node.js training % node core
+How do you like Node?Great
+Your answer: Great
+</li>
+<li><b>Using readline</b> File => const readline = require("readline");
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+    
+    function collectAnswers(questions, done) {
+      const answers = [];
+      const [firstQuestion] = questions;
+    
+      const questionAnswered = (answer) => {
+        answers.push(answer.trim());
+        if (answers.length < questions.length) {
+          rl.question(
+            questions[answers.length],
+            questionAnswered
+          );
+        } else {
+          return done(answers);
+        }
+      };
+    
+      rl.question(firstQuestion, questionAnswered);
+    }
+    
+    const questions = [
+      "What is your name?",
+      "Where do you live?",
+      "What are you going to do with Node.js?"
+    ];
+    
+    collectAnswers(questions, (answers) => {
+      console.log("Thank you for your answers!");
+      console.log(answers);
+      process.exit();
+    });
+    <br/>
+    Output => arvind@Bear-in-Mind Node.js training % node core
+    What is your name? Hannu
+    Where do you live? Hannuland
+    What are you going to do with Node.js?what Hannu Does
+    Thank you for your answers!
+    [ 'Hannu', 'Hannuland', 'what Hannu Does' ]
+    </li>
+    <li><b>Exporting custom modules (Use app.js and modules.js)
+
+    </b> Output => arvind@Bear-in-Mind Node.js training % node app
+    the count is 3</li>
+    <li><b>Creating a module </b> File = app.js <br/>
+    Output => arvind@Bear-in-Mind Node.js training % node app
+    Computer: Hello World
+    Hannu: That's pretty cool
+    Whats up
+    terminal: Whats up
+    exit
+    process: Goodbye! </li>
+    <li><b>Custom events with the EventEmitter
+
+    </b></li>
+    <li><b>Custom events with EventEmitter</b> File => app.js and /lib/collectAnswers.js (same as Using readline)
+    <br/> Output => arvind@Bear-in-Mind Node.js training % node app
+    What is your name?Hannu
+    Where do you live?Hannuland
+    What are you going to do with Node.js?great
+    Thank you for your answers!
+    [ 'Hannu', 'Hannuland', 'great' ]</li>
+    <li><b>Consuming a module with EventEmitter    </b>< Files are app.js and /lib/collectAnswers.js/
+        <br/> Output => arvind@Bear-in-Mind Node.js training % node app
+        What is your name?Hannu
+        The answer is Hannu
+        Where do you live?Hannuland
+        The answer is Hannuland
+        What are you going to do with Node.js?Good
+        The answer is Good
+        Thank you for your answers!
+        [ 'Hannu', 'Hannuland', 'Good' ]<li>
+</ul>
+<style>
+    h1{color:red;}
+    ul {color:green; font-size:24px; text-align: justify;}
+    li {padding-bottom:10px;}
+</style>
