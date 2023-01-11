@@ -1,0 +1,166 @@
+<h1> Node.js training Chapter 1</h1>
+<ul><li><b>node -v and npm -v</b> to check version of node</li>
+    <li><b>node global</b> to console log in terminal? Ex global.js file is ***let hello = "Hello World from Node.js";
+        let justNode = hello.slice(17);
+        console.log(`Who let the ${justNode} out?`);***<br/>
+        => output would be <b> arvind@Bear-in-Mind Node.js training % node global.js
+        Who let the Node.js out?
+        arvind@Bear-in-Mind Node.js training % node global   
+        Who let the Node.js out?</b>  :)</li>
+        <li>Using the require function, file <b>const path = require ("path");
+            console.log (__dirname);
+            console.log(__filename);
+            console.log(`The file name is ${path.basename(__filename)}`);</b>
+        <br/> output is <b>arvind@Bear-in-Mind Node.js training % node global
+            /Users/arvind/Downloads/Github training/Node.js training
+            /Users/arvind/Downloads/Github training/Node.js training/global.js
+            The file name is global.js
+            </b></li>
+            <li><b>Handling argument variables with process.argv            </b>file ==>function grab(flag) {
+                let indexAfterFlag = process.argv.indexOf(flag) + 1;
+                return process.argv[indexAfterFlag];
+              }
+              
+              let greeting = grab("--greeting");
+              let user = grab("--user");
+              
+              console.log(greeting);
+              console.log(user);
+              <br/> output is arvind@Bear-in-Mind Node.js training % node global --user Hannu --greeting " Hello"
+              Hello
+             Hannu
+              </li>
+              <li><b>Working with Std Input</b> File is process.stdout.write("Hello  \n \n");
+
+                const questions = [
+                  "What is your name?",
+                  "What would you rather be doing?",
+                  "What is your preferred programming language"
+                ];
+                const answers = [];
+                
+                function ask(i) {
+                  process.stdout.write(`\n\n\n ${questions[i]}`);
+                  process.stdout.write(` > `);
+                }
+                
+                process.stdin.on("data", function (data) {
+                  process.stdout.write(data.toString().trim());
+                });
+                
+                ask(answers.length);
+                <br/>
+            Output is arvind@Bear-in-Mind Node.js training % node global
+            Hello  
+             
+            
+            
+            
+             What is your name? ></li>
+             <li><b>Using std output</b> file is process.stdout.write("Hello  \n \n");
+
+                const questions = [
+                  "What is your name?",
+                  "What would you rather be doing?",
+                  "What is your preferred programming language"
+                ];
+                const answers = [];
+                
+                function ask(i = 0) {
+                  process.stdout.write(`\n\n\n ${questions[i]}`);
+                  process.stdout.write(` > `);
+                }
+                
+                ask();
+                
+                process.stdin.on("data", function (data) {
+                  answers.push(data.toString().trim());
+                  if (answers.length < questions.length) {
+                    ask(answers.length);
+                  } else {
+                    process.exit();
+                  }
+                });
+                
+                process.on("exit", function () {
+                  process.stdout.write("\n\n\n\n");
+                  process.stdout.write(
+                    `Go ${answers[1]} ${answers[0]} you can finish writing ${answers[2]} later`
+                  );
+                }); <br/>
+            Output is arvind@Bear-in-Mind Node.js training % node global
+            Hello  
+             
+             What is your name? > Hannu
+            
+             What would you rather be doing? > Dancing
+            
+             What is your preferred programming language > React
+            
+            Go Dancing Hannu you can finish writing React later%                                                                                                                                                                                        arvind@Bear-in-Mind Node.js training % 
+            </li>
+
+             </li>
+             <li><b>Creating delay with timeout </b> file is const waitTime = 3000;
+                console.log(`setting a ${waitTime / 1000} second delay`);
+                const timerFinished = () => console.log("done");
+                setTimeout(timerFinished, waitTime);
+                <br/>
+            Output is arvind@Bear-in-Mind Node.js training % node global
+            setting a 3 second delay
+            done</li>
+            <li><b>Incorporating setInterval</b> File is const waitTime = 3000;
+                console.log(`setting a ${waitTime / 1000} second delay`);
+                const timerFinished = () => {
+                    clearInterval(interval);console.log("done");}
+                
+                setTimeout(timerFinished, waitTime);
+                
+                const waitInterval = 500;
+                let currentTime = 0;
+                const incTime = () => {
+                  currentTime += waitInterval;
+                  console.log(`waiting ${currentTime/1000}  Seconds`)
+                };
+                
+                const interval = setInterval(incTime, waitInterval);
+                <br/> output is arvind@Bear-in-Mind Node.js training % node global
+                setting a 3 second delay
+                waiting 0.5  Seconds
+                waiting 1  Seconds
+                waiting 1.5  Seconds
+                waiting 2  Seconds
+                waiting 2.5  Seconds
+                done
+            <li><b>/Reporting progress with setInterval</b>
+            File is const waitTime = 3000;
+            console.log(`setting a ${waitTime / 1000} second delay`);
+            const timerFinished = () => {
+              clearInterval(interval);
+              console.log("done");
+            };
+            
+            setTimeout(timerFinished, waitTime);
+            
+            const waitInterval = 500;
+            let currentTime = 0;
+            const incTime = () => {
+              currentTime += waitInterval;
+              const p = Math.floor((currentTime / waitTime) * 100);
+              process.stdout.clearLine();
+              process.stdout.cursorTo(0);
+              process.stdout.write(`waiting.... ${p}`);
+            };
+            
+            const interval = setInterval(incTime, waitInterval);
+            <br/>
+            Output is arvind@Bear-in-Mind Node.js training % node global
+            setting a 3 second delay
+            waiting.... 83done
+        </li>
+</ul>
+<style>
+    h1{color:red;}
+    ul {color:green; font-size:24px; text-align: justify;}
+    li {padding-bottom:10px;}
+</style>
